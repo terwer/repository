@@ -130,6 +130,9 @@ public class Controller {
         URL url = getClass().getClassLoader().getResource(".");
         Path path = Paths.get(url.getPath().substring(1)).getParent().getParent();
         System.out.println("命令运行在：" + path.toUri().toString());
+        if (fileLocation.contains("pom")) {
+            fileLocation = path.toAbsolutePath().toString() + ".pom.xml";
+        }
 
         // 默认为Jar项目
         Project project = new Project(txtGroupId.getText(), txtArtifactId.getText(), txtVersion.getText(), PackageTypeEnum.JAR);
