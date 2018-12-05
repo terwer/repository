@@ -9,9 +9,10 @@ package com.terwergreen.repository;
  * @Description
  **/
 public class WarProject extends Project {
-    public WarProject(Project project, String fileLocation) {
+    public WarProject(Project project, String fileLocation,String repositoryFileLocation) {
         super(project.getGroupId(), project.getArtifactId(), project.getVersion(), PackageTypeEnum.WAR);
         this.fileLocation = fileLocation;
+        this.repositoryFileLocation = repositoryFileLocation;
     }
 
     public WarProject(String groupId, String artifactId, String version) {

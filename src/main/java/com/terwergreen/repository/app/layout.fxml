@@ -2,17 +2,18 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TextArea?>
 <GridPane alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.terwergreen.repository.app.Controller">
     <padding>
-        <Insets bottom="10" left="25" right="25" top="5"/>
+        <Insets bottom="45" left="25" right="25" top="0"/>
     </padding>
     <children>
         <Label minHeight="20" text="maven包发布管理" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -20,20 +21,32 @@
                 <Font name="System Bold" size="14.0"/>
             </font>
         </Label>
-        <Button fx:id="btnOpenFile" onAction="#openFile" text="打开jar或者pom" textFill="red" GridPane.columnSpan="2" GridPane.rowIndex="2"/>
-        <TextField fx:id="txtGroupId" text="com.terwergreen" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
-        <TextField fx:id="txtArtifactId" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
-        <TextField fx:id="txtVersion" text="1.0.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5"/>
-        <TextField fx:id="txtPackaging" text="jar" GridPane.columnSpan="2" GridPane.rowIndex="6"/>
-        <TextArea fx:id="textAreaInfo" text="路径信息" minWidth="115" minHeight="23" GridPane.columnSpan="2" GridPane.rowIndex="7"/>
-        <Button fx:id="btnCommand" text="生成命令" GridPane.halignment="RIGHT" onAction="#command" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
-        <Button fx:id="btnRun" text="发布到maven仓库" alignment="CENTER" onAction="#run" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8"/>
+        <Button fx:id="btnOpenFile" onAction="#openFile" text="打开" textFill="red" GridPane.rowIndex="2"/>
+        <Label text="jar文件或者war文件，格式必须是([artifactId]-[version].jar(.war))" textFill="red" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <CheckBox fx:id="chbPom" selected="false" text="是否包含pom-parent.xml" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4"/>
+        <TextField fx:id="txtGroupId" text="com.terwergreen" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5"/>
+        <TextField fx:id="txtArtifactId" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6"/>
+        <TextField fx:id="txtVersion" text="1.0.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7"/>
+        <TextField fx:id="txtPackaging" text="jar" GridPane.columnSpan="2" GridPane.rowIndex="8"/>
+        <TextArea fx:id="textAreaInfo" minHeight="23" minWidth="115" text="路径信息" GridPane.columnSpan="2" GridPane.rowIndex="9"/>
+        <Button fx:id="btnCommand" onAction="#command" text="生成" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="10"/>
+        <CheckBox fx:id="chbRepository" selected="false" text="是否发布到本地maven仓库" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+            <GridPane.margin>
+                <Insets right="50.0"/>
+            </GridPane.margin>
+        </CheckBox>
+        <Button fx:id="btnRun" alignment="CENTER" onAction="#run" text="发布" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10"/>
+        <Label text="作者：唐有炜" alignment="BOTTOM_LEFT" textFill="red" GridPane.columnSpan="2" GridPane.rowIndex="11"/>
     </children>
     <columnConstraints>
         <ColumnConstraints/>
         <ColumnConstraints/>
+        <ColumnConstraints/>
     </columnConstraints>
     <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
         <RowConstraints/>
         <RowConstraints/>
         <RowConstraints/>

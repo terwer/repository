@@ -1,5 +1,8 @@
 package com.terwergreen.repository;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * Jar项目
  *
@@ -9,9 +12,10 @@ package com.terwergreen.repository;
  * @Description
  **/
 public class JarProject extends Project {
-    public JarProject(Project project,String fileLocation) {
+    public JarProject(Project project, String fileLocation,String repositoryFileLocation) {
         super(project.getGroupId(), project.getArtifactId(), project.getVersion(), PackageTypeEnum.JAR);
         this.fileLocation = fileLocation;
+        this.repositoryFileLocation = repositoryFileLocation;
     }
 
     public JarProject(String groupId, String artifactId, String version) {

@@ -14,6 +14,8 @@ public class Project {
     private String version = "1.0.0";
     private PackageTypeEnum packaging = PackageTypeEnum.POM;
     protected String fileLocation = "";
+    protected String pomFileLocation = "";
+    protected String repositoryFileLocation = "";
 
     public Project(String groupId, String artifactId, String version, PackageTypeEnum packaging) {
         this.groupId = groupId;
@@ -40,6 +42,14 @@ public class Project {
 
     public String getFileLocation() {
         return fileLocation;
+    }
+
+    public String getPomFileLocation() {
+        return pomFileLocation;
+    }
+
+    public String getRepositoryFileLocation() {
+        return repositoryFileLocation;
     }
 
     @Override

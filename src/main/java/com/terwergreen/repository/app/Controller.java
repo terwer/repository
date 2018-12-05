@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
@@ -39,6 +40,8 @@ public class Controller {
     @FXML
     private Button btnOpenFile;
     @FXML
+    private CheckBox chbPom;
+    @FXML
     private Button btnCommand;
     @FXML
     private Button btnRun;
@@ -52,7 +55,8 @@ public class Controller {
     private TextField txtPackaging;
     @FXML
     private TextArea textAreaInfo;
-
+    @FXML
+    private CheckBox chbRepository;
 
     public Controller() {
         System.out.println("init");
@@ -61,7 +65,7 @@ public class Controller {
     @FXML
     private void initialize() {
         System.out.println("initialize");
-        btnOpenFile.setMaxWidth(Double.MAX_VALUE);
+        // btnOpenFile.setMaxWidth(Double.MAX_VALUE);
         textAreaInfo.setWrapText(true);
     }
 
@@ -126,28 +130,33 @@ public class Controller {
             return;
         }
 
+        // 默认为Jar项目
+        Project project = new Project(txtGroupId.getText(), txtArtifactId.getText(), txtVersion.getText(), PackageTypeEnum.JAR);
+
+        // 默认为当前项目
+        String repositoryFileLocation = ".";
+        if (chbRepository.isSelected()) {
+            repositoryFileLocation = System.getProperty("user.home") + "\\.m2\\.m2\\repository";
+        }
+
+        if (chbPom.isSelected()) {
+            // POM项目
+            project = new PomProject(project, fileLocation, repositoryFileLocation);
+        } else if (txtPackaging.getText().equals(PackageTypeEnum.JAR.name().toLowerCase())) {
+            // Jar项目
+            project = new JarProject(project, fileLocation, repositoryFileLocation);
+        } else if (txtPackaging.getText().equals(PackageTypeEnum.WAR.name().toLowerCase())) {
+            // War项目
+            project = new WarProject(project, fileLocation, repositoryFileLocation);
+        }
+
         //运行mvn命令
         URL url = getClass().getClassLoader().getResource(".");
         Path path = Paths.get(url.getPath().substring(1)).getParent().getParent();
         System.out.println("命令运行在：" + path.toUri().toString());
-        if (fileLocation.contains("pom")) {
-            fileLocation = path.toAbsolutePath().toString() + ".pom.xml";
-        }
-
-        // 默认为Jar项目
-        Project project = new Project(txtGroupId.getText(), txtArtifactId.getText(), txtVersion.getText(), PackageTypeEnum.JAR);
-        if (txtPackaging.getText().equals(PackageTypeEnum.JAR.name().toLowerCase())) {
-            // Jar项目
-            project = new JarProject(project, fileLocation);
-        } else if (txtPackaging.getText().equals(PackageTypeEnum.POM.name().toLowerCase())) {
-            // POM项目
-            project = new PomProject(project, fileLocation);
-        } else if (txtPackaging.getText().equals(PackageTypeEnum.WAR.name().toLowerCase())) {
-            // War项目
-            project = new WarProject(project, fileLocation);
-        }
-
-        String command = install(project);
+        String current = "cd " + path.toAbsolutePath().toString();
+        String line = System.lineSeparator();
+        String command = current + line + install(project);
         textAreaInfo.setText(command);
 
         final Clipboard clipboard = Clipboard.getSystemClipboard();

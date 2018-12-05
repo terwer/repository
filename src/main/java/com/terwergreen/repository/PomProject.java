@@ -1,5 +1,7 @@
 package com.terwergreen.repository;
 
+import java.nio.file.Paths;
+
 /**
  * POM项目
  *
@@ -9,9 +11,11 @@ package com.terwergreen.repository;
  * @Description
  **/
 public class PomProject extends Project {
-    public PomProject(Project project, String fileLocation) {
-        super(project.getGroupId(), project.getArtifactId(), project.getVersion(), PackageTypeEnum.POM);
+    public PomProject(Project project, String fileLocation,String repositoryFileLocation) {
+        super(project.getGroupId(), project.getArtifactId(), project.getVersion(), project.getPackaging());
         this.fileLocation = fileLocation;
+        this.pomFileLocation = Paths.get(this.fileLocation).getParent().getParent().toString()+"\\pom-parent.xml";
+        this.repositoryFileLocation = repositoryFileLocation;
     }
 
     public PomProject(String groupId, String artifactId, String version) {
