@@ -134,7 +134,7 @@ public class Controller {
         Project project = new Project(txtGroupId.getText(), txtArtifactId.getText(), txtVersion.getText(), PackageTypeEnum.JAR);
 
         // 默认为当前项目
-        String repositoryFileLocation = ".";
+        String repositoryFileLocation = "./repository";
         if (chbRepository.isSelected()) {
             repositoryFileLocation = System.getProperty("user.home") + "\\.m2\\repository";
         }
