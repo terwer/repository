@@ -155,8 +155,7 @@ public class Controller {
         Path path = Paths.get(url.getPath().substring(1)).getParent().getParent();
         System.out.println("命令运行在：" + path.toUri().toString());
         String current = "cd " + path.toAbsolutePath().toString();
-        String line = System.lineSeparator();
-        String command = current + line + install(project);
+        String command = current + " && " + install(project);
         textAreaInfo.setText(command);
 
         final Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -175,7 +174,7 @@ public class Controller {
     }
 
     @FXML
-    protected void run(ActionEvent event) {
+    protected void run(ActionEvent event) throws InterruptedException, IOException {
         btnRun.setDisable(true);
         if (textAreaInfo.getText() == null || !textAreaInfo.getText().contains("mvn")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -185,6 +184,30 @@ public class Controller {
             btnRun.setDisable(false);
             return;
         }
-        System.out.println("执行");
+
+        // String wholeCmd = "cmd /c D: && cd D:\\projects\\testProject && start mvn package";
+        String wholeCmd = "cmd /c C: ";
+        String[] cmds = textAreaInfo.getText().split(System.lineSeparator());
+        for (String cmd : cmds) {
+            wholeCmd += "&& " + cmd + " ";
+            System.out.println(cmd);
+        }
+        textAreaInfo.setText(wholeCmd);
+        System.out.println("执行命令：");
+        System.out.println(wholeCmd);
+
+        Process process = Runtime.getRuntime().exec(wholeCmd);
+        int res = process.waitFor();
+        int ext = process.exitValue();
+
+        System.out.println("res = " + res);
+        System.out.println("ext = " + ext);
+
+        if (res == 0 && ext == 0) {
+            btnRun.setDisable(false);
+            System.out.println("执行完毕");
+        } else {
+            System.out.println("执行出错");
+        }
     }
 }
