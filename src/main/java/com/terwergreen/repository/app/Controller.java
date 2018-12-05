@@ -136,7 +136,7 @@ public class Controller {
         // 默认为当前项目
         String repositoryFileLocation = ".";
         if (chbRepository.isSelected()) {
-            repositoryFileLocation = System.getProperty("user.home") + "\\.m2\\.m2\\repository";
+            repositoryFileLocation = System.getProperty("user.home") + "\\.m2\\repository";
         }
 
         if (chbPom.isSelected()) {
