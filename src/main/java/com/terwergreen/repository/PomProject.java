@@ -14,7 +14,7 @@ public class PomProject extends Project {
     public PomProject(Project project, String fileLocation,String repositoryFileLocation) {
         super(project.getGroupId(), project.getArtifactId(), project.getVersion(), project.getPackaging());
         this.fileLocation = fileLocation;
-        this.pomFileLocation = Paths.get(this.fileLocation).getParent().getParent().toString()+"\\pom-parent.xml";
+        this.pomFileLocation = Paths.get(this.fileLocation).getParent().getParent().toString()+"/pom-parent.xml";
         this.repositoryFileLocation = repositoryFileLocation;
     }
 

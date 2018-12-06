@@ -136,7 +136,7 @@ public class Controller {
         // 默认为当前项目
         String repositoryFileLocation = "./repository";
         if (chbRepository.isSelected()) {
-            repositoryFileLocation = System.getProperty("user.home") + "\\.m2\\repository";
+            repositoryFileLocation = System.getProperty("user.home") + "/.m2/repository";
         }
 
         if (chbPom.isSelected()) {
@@ -154,7 +154,7 @@ public class Controller {
         URL url = getClass().getClassLoader().getResource(".");
         Path path = Paths.get(url.getPath().substring(1)).getParent().getParent();
         System.out.println("命令运行在：" + path.toUri().toString());
-        String current = "cd " + path.toAbsolutePath().toString();
+        String current = "cd /" + path.toString();
         String command = current + " && " + install(project);
         textAreaInfo.setText(command);
 
